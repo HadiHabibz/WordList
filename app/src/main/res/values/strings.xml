@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WordList</string>
+    <string name="random_label">Random</string>
+    <string name="mannual_label">Mannual</string>
+    <string name="quickstart_label">Quick Start</string>
+    <string name="trainer_label">Trainer</string>
+    <string name="mode_label">Mode</string>
+    <string name="variations">Variations:</string>
+</resources>
