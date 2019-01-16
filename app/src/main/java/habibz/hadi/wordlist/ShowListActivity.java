@@ -43,7 +43,7 @@ public class ShowListActivity extends AppCompatActivity
         recyclerView.setHasFixedSize( true );
         layoutManager = new LinearLayoutManager( getApplicationContext() );
         recyclerView.setLayoutManager( layoutManager );
-        adapter = new WordListAdapter( wordList );
+        adapter = new WordListAdapter( wordList, this );
         recyclerView.setAdapter( adapter );
 
         recyclerView.addItemDecoration(
@@ -71,10 +71,12 @@ public class ShowListActivity extends AppCompatActivity
     public class WordListAdapter extends RecyclerView.Adapter< ShowListActivity.WordViewHolder >
     {
         private WordListDatabase wordList;
+        private Context context;
 
-        public WordListAdapter( WordListDatabase wordList )
+        public WordListAdapter( WordListDatabase wordList, final Context context )
         {
             this.wordList = wordList;
+            this.context = context;
         } // end constructor
 
         @Override
@@ -93,10 +95,11 @@ public class ShowListActivity extends AppCompatActivity
             String word = wordList.getEntry( position ).getWord();
             String partOfSpeech = "("+ wordList.getEntry( position ).getPartOfSpeech() + ")";
             String reservedPart = "*";
-            Log.d( logTag, partOfSpeech);
+            String phonetics = "\\" + wordList.getEntry( position ).getPhonetics( context ) + "\\";
             holder.wordTextView.setText( word );
             holder.partOfSpeechTextView.setText( partOfSpeech );
             holder.reservedTextView.setText( reservedPart );
+            holder.phoneticsTextView.setText( phonetics );
         } // end method onBindViewHolder
 
         @Override
@@ -112,6 +115,7 @@ public class ShowListActivity extends AppCompatActivity
         public TextView wordTextView;
         public TextView partOfSpeechTextView;
         public TextView reservedTextView;
+        public TextView phoneticsTextView;
 
         public WordViewHolder( View view )
         {
@@ -119,6 +123,7 @@ public class ShowListActivity extends AppCompatActivity
             this.wordTextView = view.findViewById( R.id.wordview );
             this.partOfSpeechTextView = view.findViewById( R.id.partofspeechview );
             this.reservedTextView = view.findViewById( R.id.reservedview );
+            this.phoneticsTextView = view.findViewById( R.id.phonetextview );
         } // end constructor
 
     } // end class WordViewHolder

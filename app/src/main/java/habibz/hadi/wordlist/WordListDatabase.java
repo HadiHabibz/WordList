@@ -111,10 +111,16 @@ public class WordListDatabase
         {
             int index;
             int counter = 0;
+            boolean wordAdded;
 
             for( index = 0; index < database[0].getWordListSize(); index += 1 )
-                if( database[0].getEntry( index ).buildInternalDefinitionDatabase( context ) )
-                    counter += 1;
+            {
+                wordAdded = database[0].getEntry( index ).buildInternalDefinitionDatabase( context );
+                database[0].getEntry( index ).buildInternalPhoneticsDatabase( context );
+
+                if( wordAdded == true )
+                    counter++;
+            }
 
             return Integer.toString( counter ) + " new definitions fetched and saved.";
         } // end method doInBackground
